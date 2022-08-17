@@ -7,7 +7,7 @@ const eventsPrd = "https://projeto-ssr-example.herokuapp.com/events";
 const eventsEnvironment = eventsPrd;
 
 const iframePrd = "https://projeto-ssr-example.herokuapp.com/server-client";
-// const iframeLocal = "http://localhost:8000/server-client";
+// const iframeLocal = "http://localhost:8000/server-client?identityProvider=EUD";
 
 const iframeEnvironment = iframePrd;
 
@@ -24,8 +24,8 @@ function App() {
         setDataEvent(event.data);
       };
 
-      events.onerror = () => {
-        setDataEvent("Server closed connection");
+      events.onerror = (event) => {
+        setDataEvent(event.data);
         events.close();
       };
 
@@ -36,6 +36,7 @@ function App() {
   useEffect(() => {
     if (dataEvent) {
       const data = JSON.parse(dataEvent);
+
       setDisabled(data.isDisabled);
     }
   }, [dataEvent]);
